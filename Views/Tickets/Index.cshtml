@@ -1,0 +1,135 @@
+﻿@model TicketApplication.Models.AnnouncementAndTicketViewModel
+
+@{
+    ViewData["Title"] = "Index";
+    //if this page no longer works, simply remove all of the Ticket[0] references, then it shall reference ticket if we pass that in again
+}
+
+
+@if(Model.Announcements.Any())
+{
+    <h2> @Model.Title</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Announcements[0].OwnerName)
+                </th>                                   
+                <th>                                    
+                    @Html.DisplayNameFor(model => model.Announcements[0].Title)
+                </th>                                   
+                <th>                                    
+                    @Html.DisplayNameFor(model => model.Announcements[0].Description)
+                </th>                                   
+                <th>                                    
+                    @Html.DisplayNameFor(model => model.Announcements[0].CreatedDate)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    
+        @foreach(var item in Model.Announcements)
+        {
+            <tr class="table-success">
+                <td>
+                    @Html.DisplayFor(modelItem => item.OwnerName)
+                </td>                             
+                <td>                              
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>                            
+                <td>                             
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>                             
+                <td>                              
+                    @Html.DisplayFor(modelItem => item.CreatedDate)
+                </td>
+            </tr>
+
+
+
+
+
+        }
+    </table>
+}
+
+
+
+
+
+<h2>My Tickets</h2>
+<p>
+    Having an Issue? <a asp-action="Create">Create New Ticket</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Ticket[0].OwnerID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ticket[0].Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ticket[0].Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ticket[0].CreatedDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Ticket) {
+    if(item.TicketResponses != null)
+    {
+                <tr class="table-success">
+                <td>
+                    @Html.DisplayFor(modelItem => item.OwnerID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedDate)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.TicketId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.TicketId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.TicketId">Close Ticket</a>
+                </td>
+                </tr>
+
+     }
+     else
+     {
+         <tr class="table-warning">
+                <td>
+                    @Html.DisplayFor(modelItem => item.OwnerID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedDate)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.TicketId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.TicketId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.TicketId">Close Ticket</a>
+                </td>
+                </tr>
+
+
+     }
+
+        }
+    </tbody>
+</table>
