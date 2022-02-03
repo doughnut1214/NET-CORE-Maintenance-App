@@ -76,7 +76,13 @@ namespace TicketApplication.Controllers
 
             var ticket = await _context.Ticket
                 .FirstOrDefaultAsync(m => m.TicketId == id);
-
+            
+            //protects tickets not created by the user 
+            //TODO--Return forbid if current user is not admin
+            //if (ticket.OwnerID != User.Identity?.Name)
+            //    return Forbid();
+            
+            
             /*
             var ticketResponse = from m in _context.TicketResponse.AsQueryable().Cast<TicketResponse>()
                                  select m;
@@ -148,6 +154,9 @@ namespace TicketApplication.Controllers
             }
 
             var ticket = await _context.Ticket.FindAsync(id);
+
+            if (ticket.OwnerID != User.Identity?.Name)
+                return Forbid();
             if (ticket == null)
             {
                 return NotFound();

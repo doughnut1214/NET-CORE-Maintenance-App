@@ -1,0 +1,85 @@
+﻿@model IEnumerable<TicketApplication.Models.Ticket>
+
+@{
+    ViewData["Title"] = "Tickets";
+    //if this page no longer works, simply remove all of the Ticket[0] references, then it shall reference ticket if we pass that in again
+}
+
+
+
+
+
+
+<h2>All Tickets</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.OwnerID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+    if(item.TicketResponses != null)
+    {
+                <tr class="table-success">
+                <td>
+                    @Html.DisplayFor(modelItem => item.OwnerID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedDate)
+                </td>
+                <td>
+                    
+                    <a asp-action="Details" asp-route-id="@item.TicketId">Details</a> |
+                    <a asp-controller="Tickets" asp-action="Delete" asp-route-id="@item.TicketId">Close Ticket</a>
+                </td>
+                </tr>
+
+     }
+     else
+     {
+         <tr class="table-warning">
+                <td>
+                    @Html.DisplayFor(modelItem => item.OwnerID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedDate)
+                </td>
+                <td>
+                    <a asp-controller="Tickets" asp-action="Edit" asp-route-id="@item.TicketId">Edit</a> |
+                    <a asp-controller="Tickets" asp-action="Details" asp-route-id="@item.TicketId">Details</a> |
+                    <a asp-controller="Tickets" asp-action="Delete" asp-route-id="@item.TicketId">Close Ticket</a>
+                </td>
+                </tr>
+
+
+     }
+
+        }
+    </tbody>
+</table>

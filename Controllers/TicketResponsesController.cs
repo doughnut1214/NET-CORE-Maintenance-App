@@ -135,6 +135,13 @@ namespace TicketApplication.Controllers
 
             return View(ticketResponse);
         }
+        public async Task<IActionResult> Tickets()
+        {
+
+
+
+            return View(await _context.Ticket.ToListAsync());
+        }
 
         // POST: TicketResponses/Delete/5
         [HttpPost, ActionName("Delete")]
