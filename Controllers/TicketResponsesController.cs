@@ -138,9 +138,21 @@ namespace TicketApplication.Controllers
         public async Task<IActionResult> Tickets()
         {
 
+            IQueryable<Ticket> tickets = from m in _context.Ticket.AsQueryable()
+                                         select m;
+            foreach (var ticket in tickets)
+            {
+                IQueryable<TicketResponse> responses = from m in _context.TicketResponse.AsQueryable().Where(t => t.TicketId == ticket.TicketId)
+                                                       select m;
+                if (responses.Any())
+                {
+                    ticket.TicketResponses = responses.ToList();
+
+                }
+            }
 
 
-            return View(await _context.Ticket.ToListAsync());
+            return View(tickets);
         }
 
         // POST: TicketResponses/Delete/5
