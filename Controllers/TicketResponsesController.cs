@@ -45,9 +45,21 @@ namespace TicketApplication.Controllers
         }
 
         // GET: TicketResponses/Create
-        public IActionResult Create()
+        public IActionResult Create(int? Id)
         {
-            ViewData["TicketId"] = new SelectList(_context.Ticket, "TicketId", "TicketId");
+            if(Id == null)
+            {
+                return NotFound();
+            }
+            IQueryable<Ticket> tickets = from m in _context.Ticket.AsQueryable().Where(m => m.TicketId == Id)
+                                         select m;
+            ViewBag.ticket = tickets.ToList();
+            
+
+            //ViewData["TicketId"] = new SelectList(_context.Ticket.Where(t=>t.TicketId == Id), "TicketId", "TicketId");
+
+            //TODO -- Get properties of tickets, display on html page 
+
             return View();
         }
 
@@ -56,8 +68,9 @@ namespace TicketApplication.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Description,CreatedDate,TicketId")] TicketResponse ticketResponse)
+        public async Task<IActionResult> Create([Bind("Title,Description,CreatedDate,TicketId")] TicketResponse ticketResponse)
         {
+           
             if (ModelState.IsValid)
             {
                 _context.Add(ticketResponse);

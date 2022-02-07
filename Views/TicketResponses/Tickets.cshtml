@@ -50,8 +50,8 @@
                     @Html.DisplayFor(modelItem => item.CreatedDate)
                 </td>
                 <td>
-                    
-                    <a asp-action="Details" asp-route-id="@item.TicketId">Details</a> |
+                    <a asp-action="Create" asp-route-id="@item.TicketId">Respond</a>
+                    <a asp-controller="Tickets" asp-action="Details" asp-route-id="@item.TicketId">Details</a> |
                     <a asp-controller="Tickets" asp-action="Delete" asp-route-id="@item.TicketId">Close Ticket</a>
                 </td>
                 </tr>
@@ -73,7 +73,7 @@
                     @Html.DisplayFor(modelItem => item.CreatedDate)
                 </td>
                 <td>
-                    <a asp-controller="Tickets" asp-action="Edit" asp-route-id="@item.TicketId">Edit</a> |
+                    <a asp-action="Create" asp-route-id="@item.TicketId">Respond</a> |
                     <a asp-controller="Tickets" asp-action="Details" asp-route-id="@item.TicketId">Details</a> |
                     <a asp-controller="Tickets" asp-action="Delete" asp-route-id="@item.TicketId">Close Ticket</a>
                 </td>
