@@ -13,7 +13,7 @@ using TicketApplication.Models;
 
 namespace TicketApplication.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class AnnouncementsController : Controller
     {
         private readonly ApplicationDbContext _context;

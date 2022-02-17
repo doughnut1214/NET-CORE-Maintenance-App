@@ -13,7 +13,7 @@ using TicketApplication.Models;
 
 namespace TicketApplication.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin, Renter")]
     public class TicketsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -37,7 +37,7 @@ namespace TicketApplication.Controllers
              
              */
 
-            IQueryable<Ticket> tickets = from m in _context.Ticket.AsQueryable().Where(m => m.OwnerID == User.Identity.Name)
+            IQueryable<Ticket> tickets =  from m in _context.Ticket.AsQueryable().Where(m => m.OwnerID == User.Identity.Name)
                                          select m;
             foreach(var ticket in tickets)
             {
